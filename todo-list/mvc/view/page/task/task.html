@@ -1,0 +1,108 @@
+[[ template "contentTop" . ]]
+
+<style>
+.page-task-reg-form {margin-top:50px;}
+.page-task-reg-form input[name=task] {width:60%;padding:10px;border:1px solid blueviolet;border-radius:5px;
+    box-shadow:2px 2px 2px #d5d5d5;box-sizing:border-box;}
+.page-task-reg-form button {width:60px;padding:10px;color:#fff;border-radius:5px;box-sizing:border-box;background:blueviolet;}
+
+.page-task-list {margin-top:50px;}
+.page-task-list li {margin-bottom:10px;padding:10px 15px;border-radius:5px;box-shadow:1px 1px 1px #e5e5e5;box-sizing:border-box;background:#fff;}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (e) => {
+        
+        /*
+        fetch('/task/getTask.ajax', {
+            method: 'GET',
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+        })
+        .catch((error) => {
+            console.error(error)
+        });
+        */
+    });    
+</script>
+
+<script type="module">
+    const taskRegForm = document.querySelector('#taskRegForm');
+
+    [...taskRegForm.elements].forEach((el) => {
+        if(el.nodeName === 'INPUT' && el.type === 'checkbox') {
+            el.value = 'N';
+            el.addEventListener('click', taskRegCkInputClickEvent);
+        }
+    });
+
+    function taskRegCkInputClickEvent(el) {
+        if(el.target.checked) {
+            el.target.value = 'Y'
+        } else {
+            el.target.value = 'N'
+        }
+    }
+
+    
+
+    const taskRegBtn = document.querySelector('#taskRegBtn');
+    taskRegBtn.addEventListener('click', (e) => {
+        e.preventDefault;
+
+        const formData = new FormData(taskRegForm);
+        const data = Object.fromEntries(formData.entries());
+
+        fetch('/task/setTask.ajax', {
+            method: 'POST',
+            body: JSON.stringify(data),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+        })
+        .catch((error) => {
+            console.error(error)
+        });
+
+    });
+</script>
+
+
+        <section class="content-main-section-wrap">
+            <h4 class="content-main-section--title">[[ .ContentTitle ]]</h4>
+
+            <form class="page-task-reg-form" autocomplete="off" id="taskRegForm" onSubmit="return false;">
+                <fieldset>
+                    <legend class="hide">할 일 등록 양식</legend>
+            
+                    <label>
+                        중요
+                        <input type="checkbox" name="important" aria-label="할 일 중요 여부">
+                    </label>
+
+                    <label>
+                        즐겨찾기
+                        <input type="checkbox" name="star" aria-label="할 일 즐겨찾기 여부">
+                    </label>
+
+                    <label>
+                        <input type="text" name="task" aria-label="할 일 내용 입력" required focuse>
+                    </label>
+            
+                    <button type="submit" id="taskRegBtn">등록</button>
+            
+                </fieldset>
+            </form>
+
+            <h5 class="hide">할 일 목록</h5>
+            <ul class="page-task-list">
+                <li>할 일 1</li>
+                <li>할 일 2</li>
+            </ul>
+
+        </section>
+
+[[ template "contentBottom" . ]]

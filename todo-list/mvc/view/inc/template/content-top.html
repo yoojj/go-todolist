@@ -1,0 +1,121 @@
+[[ define "contentTop" ]]
+
+<!doctype html>
+<html lang="ko">
+
+<head>
+<meta charset="utf-8">
+
+<title>[[ .PageTitle ]]</title>
+
+<link rel="stylesheet" href="/static/css/base.css">
+<link rel="stylesheet" href="/static/css/template.css">
+<link rel="stylesheet" href="/static/css/component.css">
+
+<script>
+    document.addEventListener('DOMContentLoaded', (e) => {
+        const componentLoading = document.querySelector('#componentLoading');
+        componentLoading.classList.add('none');
+    });
+</script>
+
+<script type="module">
+    // type="module" == defer
+    
+    const headerUserInfoBtn = document.querySelector('#headerUserInfoBtn');
+    headerUserInfoBtn.addEventListener('click', (e) => {
+
+        // 팝업 열면  
+        // headerUserInfoBtn.ariaPressed = true; 
+        
+    });
+</script>
+
+</head>
+
+<body>
+
+[[ template "componentLoading" . ]]
+
+<h1 class="hide">todo list app</h1>
+<hr>
+
+<header class="content-header">
+    <h2 class="hide">상단 바로가기, 검색</h2>   
+
+    <nav class="content-header-nav">
+        <h3 class="hide">바로가기</h3> 
+        <a href="/" class="content-header-nav--home" aria-label="인덱스 화면으로 이동">To Do</a>
+        <button type="button" class="content-header-nav--user" id="headerUserInfoBtn" aria-label="사용자 정보 팝업" aria-pressed="false">
+            [[ .User.Firstname ]]<i class="hide">[[ .User.Lastname ]]</i>
+        </button>
+    </nav>
+
+    <form class="content-header-form--search">
+    <fieldset>
+        <legend class="hide">검색 양식</legend>
+
+        <label>
+            <input type="text" aria-label="검색어 입력">
+        </label>
+
+        <input type="submit" value="검색">
+
+    </fieldset>
+    </form>
+
+</header>    
+<hr>
+
+<main class="content-main main-flex-container">
+    <h2 class="hide">메인</h2> 
+
+    <nav class="content-main-nav nav-flex-item">
+        <h3 class="hide">할 일 바로가기 메뉴, 채팅 바로가기, 파일함 바로가기</h3>
+
+        <ul class="main-nav-list">
+            <li><a href="/task">모든 할 일</a></li>
+            <li><a href="/task/today">오늘 할 일</a></li>
+            <li><a href="/task/important">중요</a></li>
+            <li class="main-nav-list--star"><a href="/task/star">즐겨찾기</a></li>
+
+            <li class="main-nav-list-icon main-nav-list--chat">
+                <a href="/chat">
+                    <i class="hide">채팅 바로가기</i>
+                    <svg fill="currentColor" width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M4.5 6.75a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM6.75 3.5a3.25 3.25 0 100 6.5 3.25 3.25 0 000-6.5zm5.69 
+                                11.65c.53.21 1.21.35 2.06.35 1.88 0 2.92-.67 3.47-1.43a2.92 2.92 0 00.53-1.5v-.07c0-.83-.67-1.5-1.5-1.5h-4.63c.24.29.42.63.53 
+                                1H17c.28 0 .5.22.5.5v.1l-.04.22c-.04.18-.13.42-.3.66-.33.46-1.04 1.02-2.66 1.02-.73 0-1.28-.11-1.69-.28-.08.28-.2.6-.37.93zM1.5 
+                                13c0-1.1.9-2 2-2H10a2 2 0 012 2V13.08a1.43 1.43 0 01-.01.18 3.95 3.95 0 01-.67 1.8C10.62 16.09 9.26 17 6.75 17c-2.51 
+                                0-3.87-.92-4.57-1.93a3.95 3.95 0 01-.68-1.99V13zm1 .06v.1l.06.33c.07.27.2.64.45 1C3.49 15.2 4.5 16 6.75 
+                                16s3.26-.8 3.74-1.5a2.95 2.95 0 00.5-1.42l.01-.02V13a1 1 0 00-1-1H3.5a1 1 0 00-1 1v.06zM13 7.5a1.5 1.5 0 
+                                113 0 1.5 1.5 0 01-3 0zM14.5 5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z" fill="currentColor">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+
+            <li class="main-nav-list-icon main-nav-list--file">
+                <a href="/file">
+                    <i class="hide">파일함 바로가기</i>
+                    <svg fill="currentColor" width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M4.83 10.48l5.65-5.65a3 3 0 014.25 4.24L8 15.8a1.5 1.5 0 01-2.12-2.12l6-6.01a.5.5 0 10-.7-.71l-6 6.01a2.5 2.5 
+                                0 003.53 3.54l6.71-6.72a4 4 0 10-5.65-5.66L4.12 9.78a.5.5 0 00.7.7z" fill="currentColor">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="content-main-section nav-flex-item">
+        <h3 class="hide">컨텐츠 시작</h3>
+    
+    <!--
+        content template 
+        
+        <section class="content-main-section-wrap">
+            <h4 class="content-main-section--title">제목</h4>
+        </section>
+    -->
+[[ end ]]

@@ -1,2 +1,8 @@
 bin
 pkg 
+!v2-todo-list-server/pkg
+
+node_modules
+
+.vscode/*
+!.vscode/extensions.json

@@ -1,0 +1,7 @@
+{
+    "watch": ["*"],
+    "ext": "",
+    "exec": "go run cmd/test/main.go && killall -9 | go run cmd/test/main.go",
+
+    "ignore": []
+}
